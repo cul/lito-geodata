@@ -3,36 +3,10 @@ Rails.application.routes.draw do
   root to: "catalog#index"
   concern :searchable, Blacklight::Routes::Searchable.new
 
-  resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
+  resource :catalog, only: [], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
   end
-
-
-  # ======== ======== ========
-  # ======== COLUMBIA ========
-  # ======== ======== ========
-
-  # cul_omniauth authentication
-  # devise_for :users
-  devise_for :users, controllers: { 
-    sessions: 'users/sessions', 
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
-
-  # already defined implicitly
-  # devise_scope :user do
-  #   get 'sign_in',  to: 'users/sessions#new',     as: :new_user_session
-  #   get 'sign_out', to: 'users/sessions#destroy', as: :destroy_user_session
-  # end
-
-  # Runtime systems details
-  get 'admin/system'
-
-  # ======== ======== ========
-  # ======== ======== ========
-  # ======== ======== ========
-
-
+  devise_for :users
 
   concern :exportable, Blacklight::Routes::Exportable.new
 
@@ -40,7 +14,7 @@ Rails.application.routes.draw do
     concerns :exportable
   end
 
-  resources :bookmarks do
+  resources :bookmarks, only: [:index, :update, :create, :destroy] do
     concerns :exportable
 
     collection do
@@ -52,6 +26,10 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
+
+  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
   # root "posts#index"

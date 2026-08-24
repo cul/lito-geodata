@@ -1,11 +1,5 @@
-# Configurable Logo Used for CartoDB export
-APPLICATION_LOGO_URL: 'http://geoblacklight.org/images/geoblacklight-logo.png'
-
-# Carto OneClick Service https://carto.com/engine/open-in-carto/
-CARTO_ONECLICK_LINK: 'http://oneclick.carto.com/'
-
 # ArcGIS Online Base URL
-ARCGIS_BASE_URL: 'https://www.arcgis.com/home/webmap/viewer.html'
+ARCGIS_BASE_URL: 'https://www.arcgis.com/apps/mapviewer/index.html'
 
 # Download path can be configured using this setting
 #DOWNLOAD_PATH: "./tmp/cache/downloads"
@@ -88,7 +82,7 @@ FIELDS:
   :WXS_IDENTIFIER: 'gbl_wxsIdentifier_s'
 
 # Institution deployed at
-INSTITUTION: 'Columbia'
+INSTITUTION: 'Stanford'
 
 # Metadata shown in tool panel
 METADATA_SHOWN:
@@ -98,7 +92,7 @@ METADATA_SHOWN:
   - 'html'
 
 # (For external Download) timeout and open_timeout parameters for Faraday
-TIMEOUT_DOWNLOAD: 16
+TIMEOUT_DOWNLOAD: 180
 
 # (For WMS inspection) timeout and open_timeout parameters for Faraday
 TIMEOUT_WMS: 4
@@ -215,7 +209,15 @@ RELATIONSHIPS_SHOWN:
     inverse: :VERSION_OF_ANCESTORS
     label: geoblacklight.relations.version_of_descendants
     query_type: descendants
-    
+
+# Vector data download formats to be displayed
+DOWNLOAD_FORMATS:
+  VECTOR:
+    - 'Shapefile'
+    - 'KMZ'
+    - 'GeoJSON'
+    - 'CSV'
+
 # WMS Parameters
 WMS_PARAMS:
   :SERVICE: 'WMS'
@@ -224,11 +226,28 @@ WMS_PARAMS:
   :STYLES: ''
   :SRS: 'EPSG:4326'
   :EXCEPTIONS: 'application/json'
-  :INFO_FORMAT: 'text/html'
+  :INFO_FORMAT: 'application/json'
 
 # Settings for leaflet
 LEAFLET:
   MAP:
+  BOUNDSOVERLAY:
+    INDEX:
+      color: '#3388ff'
+    SHOW:
+      color: '#3388ff'
+    STATIC_MAP:
+      color: '#3388ff'
+  SELECTED_COLOR: "#2C7FB8"
+  SLEEP:
+    SLEEP: true # set to false to disable
+    MARGIN_DISTANCE: 100 # set to zero / false if you want to disable this check
+    SLEEPTIME: 750
+    WAKETIME: 750
+    HOVERTOWAKE: false
+    MESSAGE: 'Click to Wake'
+    BACKGROUND: 'rgba(214, 214, 214, .7)'
+  SIDEBAR: false # set to true to display attribute table as sidebar on map
   LAYERS:
     DETECT_RETINA: true
     INDEX:
@@ -236,57 +255,52 @@ LEAFLET:
         color: "#7FCDBB"
         weight: 1
         radius: 4
+        sr_color_name: "Green"
       UNAVAILABLE:
         <<: *default
         color: "#EDF8B1"
+        sr_color_name: "Yellow"
       SELECTED:
         <<: *default
         color: "#2C7FB8"
-  VIEWERS:
-    DYNAMICMAPLAYER:
-      CONTROLS:
-        - 'Opacity'
-        - 'Fullscreen'
-    FEATURELAYER:
-      CONTROLS:
-        - 'Opacity'
-        - 'Fullscreen'
-    IIIF:
-      CONTROLS:
-        - 'Fullscreen'
-    IMAGEMAPLAYER:
-      CONTROLS:
-        - 'Opacity'
-        - 'Fullscreen'
-    INDEXMAP:
-      CONTROLS:
-        - 'Fullscreen'
-    TILEDMAPLAYER:
-      CONTROLS:
-        - 'Opacity'
-        - 'Fullscreen'
-    WMS:
-      CONTROLS:
-        - 'Opacity'
-        - 'Fullscreen'
+        sr_color_name: "Blue"
 
 # Toggle the help text feature that offers users context
 HELP_TEXT:
   viewer_protocol:
+      - 'cog'
       - 'dynamic_map_layer'
       - 'feature_layer'
       - 'iiif'
       - 'iiif_manifest'
       - 'image_map_layer'
       - 'index_map'
-      - 'tiled_map_layer'
-      - 'wms'
-      - 'tms'
       - 'oembed'
       - 'pmtiles'
-      - 'cog'
+      - 'tiled_map_layer'
+      - 'tilejson'
+      - 'tms'
+      - 'wms'
+      - 'wmts'
+      - 'xyz'
 
 # Enable catalog#show sidebar static map for items with the following viewer protocols
 SIDEBAR_STATIC_MAP:
   - 'iiif'
   - 'iiif_manifest'
+
+IIIF_DRAG_DROP_LINK: '@manifest?manifest=@manifest'
+
+ICON_MAPPING:
+  chicago: university-of-chicago
+  illinois: university-of-illinois-urbana-champaign
+  iowa: university-of-iowa
+  maryland: university-of-maryland
+  michigan-state: michigan-state-university
+  michigan: university-of-michigan
+  minnesota: university-of-minnesota
+  nebraska: university-of-nebraska-lincoln
+  ohio-state: the-ohio-state-university
+  penn-state: pennsylvania-state-university
+  purdue: purdue-university
+  wisconsin: university-of-wisconsin-madison

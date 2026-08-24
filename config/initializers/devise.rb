@@ -9,15 +9,12 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-
-  Geodata::Application.configure_devise_omniauth(config)
-
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '1cc46da864765107fe7761bc19150919fb0c7a6753f81dbc05f6b9e8c42e1825e553cf9c3d965e053a364d1b8580c8889432adf1f68cb39cf7bde4f292e44fe1'
+  # config.secret_key = '48e8720ee44961dcf9b17ed4947c9ebb5f8a1e05408660475307b1d979732de1fd4e2f66de869d3b66e07e33bda5ea05304d9cc75318b7eb5837b2689d67580a'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -112,7 +109,7 @@ Devise.setup do |config|
   # This can reduce the time taken to boot the app but if your application
   # requires the Devise mappings to be loaded during boot time the application
   # won't boot properly.
-  # config.reload_routes = true
+  config.reload_routes = false
 
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 12. If
@@ -129,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'b77ac0b685046a64408aa974914c2e6cb50116e608af0f27a5b4a55cbe7a6d7abc0bdd476e4c9e914ec14a421897be77200c7236041de3d4d32708a92954a676'
+  # config.pepper = '733467ec7a3d07b7d09b8c4c8cadd82155ccd7eec8ba2faa8887e84303d415352cd2002611511cc13f49b1e6b766af657ecae2962a1adb7d5d291de85a08dc04'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -160,6 +157,9 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
+  # Also, when used in conjunction with `send_email_changed_notification`,
+  # the notification is sent to the original email when the change is requested,
+  # not when the unconfirmed email is confirmed.
   config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
@@ -280,9 +280,9 @@ Devise.setup do |config|
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
   #
-  # config.warden do |manager|
-  #   manager.intercept_401 = false
-  #   manager.default_strategies(scope: :user).unshift :some_external_strategy
+  # config.warden do |warden_config|
+  #   warden_config.intercept_401 = false
+  #   warden_config.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
   # ==> Mountable engine configurations
@@ -305,7 +305,7 @@ Devise.setup do |config|
   # apps is `200 OK` and `302 Found` respectively, but new apps are generated with
   # these new defaults that match Hotwire/Turbo behavior.
   # Note: These might become the new default in future versions of Devise.
-  config.responder.error_status = :unprocessable_entity
+  config.responder.error_status = :unprocessable_content
   config.responder.redirect_status = :see_other
 
   # ==> Configuration for :registerable
@@ -313,23 +313,4 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
-
-
-  # Try again to quiet deprecation warnings
-  # https://github.com/heartcombo/devise/issues/5644#issuecomment-1804626431
-  config.secret_key = Rails.application.secret_key_base
 end
-
-
-# # https://github.com/heartcombo/devise/issues/5644#issuecomment-1780766510
-# #
-# # For those looking for an immediate fix, it is possible to monkey_patch around the issue.
-# # Add the following in your initializers/devise.rb:
-# #
-# class Devise::SecretKeyFinder
-#   def find
-#     @application.secret_key_base
-#   end
-# end
-
-
