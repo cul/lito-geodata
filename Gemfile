@@ -89,4 +89,12 @@ gem 'capistrano-rvm'       # RVM integration
 gem 'capistrano-passenger' # restarts Passenger on deploy
 gem 'whenever'             # cron job management via schedule.rb
 
+# Pin to 1.17.x — server glibc too old for 1.18.x precompiled native gem
+# /lib64/libm.so.6: version `GLIBC_2.29' not found
+gem 'nokogiri', '~> 1.17.0'
+
+
+
+
+
 
