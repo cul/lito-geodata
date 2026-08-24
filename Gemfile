@@ -59,6 +59,15 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Capistrano deployment
+  gem 'capistrano'           # deployment automation
+  gem 'capistrano-bundler'   # runs bundle install on deploy
+  gem 'capistrano-rails'     # asset precompile and migrations
+  gem 'capistrano-rvm'       # RVM integration
+  gem 'capistrano-passenger' # restarts Passenger on deploy
+  gem 'whenever'             # cron job management via schedule.rb
+
 end
 
 group :test do
@@ -66,8 +75,14 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
 gem "geoblacklight"
 gem "bootstrap", "~> 5.3"
 gem "devise"
 gem "devise-guests", "~> 0.8"
 gem "rsolr", ">= 1.0", "< 3"
+
+# MySQL database adapter — used in all environments
+gem  "mysql2"
+
+
