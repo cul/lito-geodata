@@ -1,0 +1,49 @@
+<% require 'etc' %>
+
+<h2>System Details</h2>
+
+<p><em>This page is only reachable on geodata_dev (see AdminController) and is unguarded there.
+Do not enable it on geodata_test or geodata_prod without restoring real authentication.</em></p>
+
+<% database_configuration = Rails.configuration.database_configuration[Rails.env] %>
+<% parameter_filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters) %>
+
+<% system_details = {
+     'LAST_DEPLOYED'    => LAST_DEPLOYED,
+     'GEODATA_VERSION'  => GEODATA_VERSION,
+     'RUBY_VERSION'     => RUBY_VERSION,
+     'Rails.version'    => Rails.version,
+     'Blacklight.version' => Blacklight.version,
+     'Geoblacklight::VERSION' => Geoblacklight::VERSION,
+     'Rails.env'        => Rails.env,
+     'request.protocol' => request.protocol,
+     'request.fullpath' => request.fullpath,
+     'request.url'      => request.url,
+     'request.remote_addr' => request.remote_addr,
+     'Socket.gethostname'  => Socket.gethostname,
+     'Process.pid'      => Process.pid,
+     'Process.uid'      => Process.uid,
+     'Etc.getpwuid(Process.uid).name' => Etc.getpwuid(Process.uid).name,
+     'Booted'           => time_ago_in_words(BOOTED_AT) + ' ago',
+     'Dir.pwd'          => Dir.pwd,
+   }.merge(
+     parameter_filter.filter(database_configuration.to_h).transform_keys { |k| "DB #{k}" }
+   ) %>
+
+<table class='table table-bordered table-hover table-condensed'>
+  <% system_details.each do |label, value| %>
+    <tr class='active'>
+      <td><%= label %></td>
+      <td><%= value %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Solr connection config</h2>
+<pre><%= parameter_filter.filter(Blacklight.connection_config.to_h).to_yaml %></pre>
+
+<h2>Full APP_CONFIG</h2>
+<pre><%= parameter_filter.filter(APP_CONFIG.to_h).to_yaml %></pre>
+
+<h2>Full ENV</h2>
+<pre><%= parameter_filter.filter(ENV.to_h).sort.to_h.to_yaml %></pre>
