@@ -3,4 +3,6 @@
 
 require_relative "config/application"
 
+require_relative "config/initializers/geodata_config"
+
 Rails.application.load_tasks
