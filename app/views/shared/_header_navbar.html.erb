@@ -1,0 +1,112 @@
+<%# Columbia GeoData header/navbar.
+    Overrides Blacklight's shared/_header_navbar.html.erb - see
+    app/views/layouts/blacklight/base.html.erb (gem-owned, not overridden)
+    for where this partial gets rendered on every Blacklight-driven page.
+
+    Structure adapted from GB4's two-bar navbar (#columbiaTopNavBar +
+    the GBL topbar), merged into a single bar per request. Only the
+    secondary content (crown/CUL dropdown link items, bookmarks/history/
+    login, Help dropdown) collapses on mobile - the logo and toggler
+    always stay visible, unlike GB4 where the crown dropdown itself
+    collapsed too.
+
+    Dropdown markup updated to Bootstrap 5: data-bs-toggle (was
+    data-toggle), dropdown-menu-end (was dropdown-menu-right), and
+    dropdown-menu items/dividers wrapped in <li> (BS5 requires this;
+    GB4's bare <a class="dropdown-item"> directly in the menu was BS4
+    syntax). Also fixed GB4's duplicate id="navbarDropdownMenuLink" bug
+    (both dropdowns shared one id) - these are unique.
+
+    Navbar color and crown/topbarlogo font verified directly from real
+    GB4 production source (cul-geoblacklight-geodata44's _customizations.scss),
+    not guessed:
+      $culDarkBlue #002B7F     - navbar background
+      TrajanProRegular         - "Columbia University Libraries" text,
+                                 via the topbarlogo class (see
+                                 app/assets/stylesheets/_columbia_navbar.scss)
+    Columbia Blue #B9D9EB (from the university-wide brand guide, not GB4)
+    is kept for the masthead/logo-row background - GB4 doesn't have an
+    equivalent element to verify against, so this one's still a
+    reasonable choice rather than a confirmed match.
+    Inline styles here still pending a full move into
+    _columbia_navbar.scss during the dedicated CSS branding pass. %>
+
+<script>
+  window.cartoApiKey = "<%= APP_CONFIG['carto_api_key'] %>";
+</script>
+
+<header>
+  <nav id="columbia-geodata-navbar" class="navbar navbar-expand-md navbar-dark" style="background-color: #002B7F;" aria-label="<%= t('blacklight.top_navbar.aria.container_label') %>">
+    <div class="<%= container_classes %> d-flex align-items-center">
+
+      <%# Crown + "Columbia University Libraries" dropdown, from GB4 %>
+      <div class="dropdown">
+        <a class="topbarlogo nav-link dropdown-toggle d-flex align-items-center" href="#" id="columbiaLibrariesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="crown-icon me-1">
+            <%= image_tag "crown-bts-24x24.png", alt: "" %>
+          </span>
+          <span>Columbia University Libraries</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="columbiaLibrariesDropdown">
+          <li><a class="dropdown-item" href="https://columbia.edu">Columbia University &raquo; Home</a></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/index.html">Libraries &raquo; Home</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/help.html">Help</a></li>
+          <li><a class="dropdown-item" href="https://hours.library.columbia.edu">Hours</a></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/locations/map.html">Maps &amp; Directions</a></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/research/askalibrarian.html">Ask a Librarian</a></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/help/faq.html">FAQ</a></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/find/reserves.html">Course Reserves</a></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/find/request.html">Request Items</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="https://library.columbia.edu/news.html">News &amp; Events</a></li>
+          <li><a class="dropdown-item" href="https://feedback.cul.columbia.edu/feedback_submission/lweb">Suggestions &amp; Feedback</a></li>
+        </ul>
+      </div>
+
+      <%# GeoData@Columbia logo now lives below the navbar - see jumbotron. %>
+
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#user-util-collapse" aria-controls="user-util-collapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="user-util-collapse">
+        <%= render partial: "shared/user_util_links" %>
+
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="helpDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Help
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="helpDropdown">
+              <li><a class="dropdown-item" href="https://library.columbia.edu/help/faq.html">FAQ</a></li>
+              <li><a class="dropdown-item" href="https://library.columbia.edu/research/askalibrarian.html">Ask a Librarian</a></li>
+              <li><a class="dropdown-item" href="https://library.columbia.edu/find/clio.html">CLIO Help</a></li>
+              <li><a class="dropdown-item" href="https://resolver.library.columbia.edu/lweb0006">Report E-Resource Problems</a></li>
+              <li><a class="dropdown-item" href="https://feedback.cul.columbia.edu/feedback_submission/lweb">Suggestions &amp; Feedback</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <%# Logo row - persistent (every page), left-justified. Separate from the
+      heading/search jumbotron below, which is landing-page-only, so the
+      brand mark stays visible even on search results pages. %>
+  <div class="d-flex justify-content-start align-items-center px-3 py-2" style="background-color: #B9D9EB;">
+    <%= link_to blacklight_config.logo_link do %>
+      <%= image_tag "logo.png", alt: "GeoData@Columbia", height: 50 %>
+    <% end %>
+  </div>
+
+  <% if current_page?(root_path) && !has_search_parameters? %>
+    <div class="px-4 jumbotron" style="background-color: #B9D9EB; padding-top: 0.75rem; padding-bottom: 0.75rem;">
+      <div class="d-flex justify-content-center">
+        <h1 class="text-center fs-3 mb-0" style="color: #222222;">Find the maps and data you need</h1>
+      </div>
+    </div>
+  <% end %>
+
+  <%= render Blacklight::SearchNavbarComponent.new(blacklight_config: blacklight_config) %>
+</header>

@@ -1,0 +1,62 @@
+// Columbia GeoData navbar branding.
+// Font and color values verified directly from GB4 production source
+// (cul-geoblacklight-geodata44/app/assets/stylesheets/_customizations.scss),
+// not guessed. Propshaft auto-rewrites plain url() references below to
+// their digested paths - no asset-url() Sass helper needed (that was a
+// Sprockets-era requirement).
+
+$cul-dark-blue: #002B7F;
+
+@font-face {
+  font-family: 'TrajanProRegular';
+  src: url('trajanpro-regular-webfont.eot');
+  src: url('trajanpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('trajanpro-regular-webfont.woff') format('woff'),
+       url('trajanpro-regular-webfont.ttf') format('truetype'),
+       url('trajanpro-regular-webfont.svg#TrajanProRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#columbia-geodata-navbar {
+  // Tighter vertical padding than Bootstrap's navbar default (~0.5rem)
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+
+  .topbarlogo {
+    font-family: TrajanProRegular, trajan, serif;
+    color: #fff;
+  }
+
+  .crown-icon {
+    position: relative;
+    top: -4px;
+  }
+
+  // Covers "Columbia University Libraries", Bookmarks, History, Login/
+  // Logout, the signed-in user's email, and the Help toggle - all of
+  // these render with Bootstrap's standard .nav-link class.
+  .nav-link {
+    color: #fff;
+
+    &:hover, &:focus {
+      color: #fff;
+    }
+  }
+
+  // Targeting .dropdown-item (Bootstrap's actual class on these links)
+  // rather than a positional > li > a selector, which wasn't matching.
+  .dropdown-menu {
+    background-color: $cul-dark-blue;
+    border-color: $cul-dark-blue;
+
+    .dropdown-item {
+      color: #fff;
+
+      &:hover, &:focus {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
+  }
+}
