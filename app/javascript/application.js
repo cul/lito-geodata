@@ -40,3 +40,31 @@ class GeodataLeafletViewerController extends LeafletViewerController {
 Stimulus.register("leaflet-viewer", GeodataLeafletViewerController);
 
 
+// Same fix, for the OpenLayers viewer (used for PMTiles/COG items). GBL5's
+// openlayers/basemaps.js has the same Carto URLs as the leaflet ones above,
+// but its viewer controller never appends the API key - see
+// getBasemap() in geoblacklight/controllers/openlayers_viewer_controller.js.
+import TileLayer from "ol/layer/Tile";
+import XYZ from "ol/source/XYZ";
+import OpenlayersViewerController from "geoblacklight/controllers/openlayers_viewer_controller";
+import openlayersBasemaps from "geoblacklight/openlayers/basemaps";
+
+class GeodataOpenlayersViewerController extends OpenlayersViewerController {
+  getBasemap() {
+    const basemapName = this.basemapValue || "positron";
+    const { url: baseUrl, ...basemapOptions } = openlayersBasemaps[basemapName];
+
+    let url = baseUrl;
+    if (window.cartoApiKey && CARTO_BASEMAPS.includes(basemapName)) {
+      url += (url.includes("?") ? "&" : "?") + "key=" + window.cartoApiKey;
+    }
+
+    return new TileLayer({ source: new XYZ({ ...basemapOptions, url }) });
+  }
+}
+
+Stimulus.register("openlayers-viewer", GeodataOpenlayersViewerController);
+
+
+
+
