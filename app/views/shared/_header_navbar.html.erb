@@ -35,6 +35,12 @@
   window.cartoApiKey = "<%= APP_CONFIG['carto_api_key'] %>";
 </script>
 
+  <!-- add these includes here, because the content-for-head hits turbo race conditions -->
+  <!-- Include Mirador 3 for IIIF content -->
+  <script src="https://unpkg.com/mirador@^3/dist/mirador.min.js" data-turbo-track="reload"></script>
+  <!-- Include OpenSeadragon for IIIF Image content -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.js" data-turbo-track="reload"></script>
+
 <header>
   <nav id="columbia-geodata-navbar" class="navbar navbar-expand-md navbar-dark" style="background-color: #002B7F;" aria-label="<%= t('blacklight.top_navbar.aria.container_label') %>">
     <div class="<%= container_classes %> d-flex align-items-center">
@@ -70,7 +76,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="user-util-collapse">
+      <div class="collapse navbar-collapse justify-content-end" id="user-util-collapse" data-turbo="false">
         <%= render partial: "shared/user_util_links" %>
 
         <ul class="navbar-nav">
