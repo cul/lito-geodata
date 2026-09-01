@@ -74,8 +74,14 @@ end
 
 gem "geoblacklight"
 gem "bootstrap", "~> 5.3"
+
+# Auth
 gem "devise"
 gem "devise-guests", "~> 0.8"
+# Columbia Auth
+gem 'omniauth-cul'
+gem 'omniauth', '~> 2.1'
+
 gem "rsolr", ">= 1.0", "< 3"
 
 # MySQL database adapter — used in all environments

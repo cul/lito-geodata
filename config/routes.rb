@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   # ======== COLUMBIA ========
   # ======== ======== ========
 
-  # # cul_omniauth authentication
-  # # devise_for :users
-  # devise_for :users, controllers: {
-  #   sessions: 'users/sessions',
-  #   omniauth_callbacks: 'users/omniauth_callbacks'
-  # }
+  # cul_omniauth authentication
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
 
   # already defined implicitly
   # devise_scope :user do
@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   resource :catalog, only: [], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
   end
-  devise_for :users
 
   concern :exportable, Blacklight::Routes::Exportable.new
 

@@ -1,0 +1,20 @@
+<% content_for :page_title, "Log in" %>
+
+<h1>Log in</h1>
+
+<p>Redirecting you to Columbia University's login page&hellip;</p>
+
+<%# A real POST form (via button_to), same as clicking "Sign in with ColumbiaCas"
+    would have generated on the old choice screen - just auto-submitted below,
+    so it's CSRF-protected and still works if JS is disabled/slow (the visible
+    button is a real fallback, not just a decoration). %>
+<%= button_to "Continue to Columbia SSO",
+              user_columbia_cas_omniauth_authorize_path,
+              data: { turbo: false },
+              id: "cas-auto-login-button",
+              class: "btn btn-primary" %>
+
+
+<script>
+  document.getElementById("cas-auto-login-button").click();
+</script>
