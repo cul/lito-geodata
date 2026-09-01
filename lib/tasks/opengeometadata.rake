@@ -212,7 +212,8 @@ namespace :opengeometadata do
 
           # Skip out-of-bounds ENVELOPE() data
           if not valid_geometry?(record['locn_geometry'])
-            puts "ERROR: layer id #{record['gbl_wxsIdentifier_s']} locn_geometry data NOT valid:  #{record['locn_geometry']}"
+            # puts "ERROR: layer id #{record['gbl_wxsIdentifier_s']} locn_geometry data NOT valid:  #{record['locn_geometry']}"
+            puts "ERROR: id #{record['id'] || path} locn_geometry data NOT valid:  #{record['locn_geometry']}"
             next
           end
 
