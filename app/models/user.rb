@@ -61,4 +61,6 @@ class User < ApplicationRecord
   def admin?
     affils && (affils.include?('CUNIX_litosys') || affils.include?('CUL_dpts-dev'))
   end
+
 end
+

@@ -2,9 +2,6 @@
 
 <h2>System Details</h2>
 
-<p><em>This page is only reachable on geodata_dev (see AdminController) and is unguarded there.
-Do not enable it on geodata_test or geodata_prod without restoring real authentication.</em></p>
-
 <% database_configuration = Rails.configuration.database_configuration[Rails.env] %>
 <% parameter_filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters) %>
 
@@ -13,7 +10,7 @@ Do not enable it on geodata_test or geodata_prod without restoring real authenti
      'GEODATA_VERSION'  => GEODATA_VERSION,
      'RUBY_VERSION'     => RUBY_VERSION,
      'Rails.version'    => Rails.version,
-     'Blacklight.version' => Blacklight.version,
+     'Blacklight.version' => Blacklight::VERSION,
      'Geoblacklight::VERSION' => Geoblacklight::VERSION,
      'Rails.env'        => Rails.env,
      'request.protocol' => request.protocol,
