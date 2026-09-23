@@ -93,4 +93,21 @@ def in_lon_lat_bounds?(minX:, maxX:, maxY:, minY:)
 end
 
 
+# Lucene's hard limit on a single indexed term (applies to untokenized
+# string fields like Aardvark's _s/_sm fields) is 32,766 bytes (UTF-8).
+# We reject with some margin below that so we're not right at the edge.
+MAX_FIELD_BYTES = 32_000
+
+def oversized_field(record)
+  record.each do |key, value|
+    Array(value).each do |v|
+      next unless v.is_a?(String)
+      bytesize = v.bytesize
+      return [key, bytesize] if bytesize > MAX_FIELD_BYTES
+    end
+  end
+  nil
+end
+
+
 

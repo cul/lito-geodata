@@ -200,6 +200,14 @@ namespace :opengeometadata do
       end
       [doc].flatten.each do |record|
         begin
+          
+          # Some OpenGeoMetadata repos include Aardvark data fields that are too large for Solr
+          if (oversized = oversized_field(record))
+            field, size = oversized
+            puts "ERROR: id #{record['id'] || path} field '#{field}' is #{size} bytes (exceeds #{MAX_FIELD_BYTES}) - skipping"
+            next
+          end
+          
           # GEO-26 - Suppress restricted layers. NOTE: this check is
           # specific to OTHER institutions' redistribution-rights
           # concerns - it intentionally does NOT apply to Columbia's own
