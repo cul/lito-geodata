@@ -1,0 +1,30 @@
+<div class='container'>
+  <div class='row text-center'>
+
+    <div class='col-sm'>
+      <%= content_tag :h4, t('geoblacklight.home.category_heading') %>
+
+      <div class='row'>
+        <%= render(Geoblacklight::HomepageFeatureFacetComponent.new(icon: 'home', label: 'geoblacklight.home.institution', facet_field: Settings.FIELDS.PROVIDER, response: @response)) %>
+
+        <!-- drop Data Type -->
+        <%#= render(Geoblacklight::HomepageFeatureFacetComponent.new(icon: 'arrow-circle-down', label: 'geoblacklight.home.data_type', facet_field: Settings.FIELDS.RESOURCE_TYPE, response: @response)) %>
+      </div>
+
+      <div class='row'>
+        <%= render(Geoblacklight::HomepageFeatureFacetComponent.new(icon: 'globe', label: 'geoblacklight.home.placename', facet_field: Settings.FIELDS.SPATIAL_COVERAGE, response: @response)) %>
+
+        <!-- replace the “Subject” with “Theme” -->
+        <%#= render(Geoblacklight::HomepageFeatureFacetComponent.new(icon: 'tags', label: 'geoblacklight.home.subject', facet_field: Settings.FIELDS.SUBJECT, response: @response)) %>
+        <%= render(Geoblacklight::HomepageFeatureFacetComponent.new(icon: 'tags', label: 'geoblacklight.home.theme', facet_field: Settings.FIELDS.THEME, response: @response)) %>
+      </div>
+
+    </div>
+
+    <div class='col-sm'>
+      <%= content_tag :h4, t('geoblacklight.home.map_heading') %>
+      <%= render(Geoblacklight::LocationLeafletMapComponent.new(page: 'home', geosearch: { dynamic: false })) %>
+    </div>
+
+  </div>
+</div>

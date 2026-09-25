@@ -1,3 +1,16 @@
 en:
-  blacklight:
-    application_name: 'GeoBlacklight'
+  # CUL-local GeoData namespace
+  geodata:
+    home:
+      headline_html: Find Maps and GIS data through the keyword search below.
+      subheading_html: >
+        See also <a href="https://library.columbia.edu/research-teaching/research-data.html">Research Data Services</a>
+        or the <a href="https://guides.library.columbia.edu/GIS">GIS Data Research Guide</a>.
+  
+  # GeoBlacklight overrides
+  geoblacklight:
+    application_name: 'GeoData'
+    home:
+      category_heading: 'Or click below for a preset search'
+      map_heading: 'Or use map below for location search'
+

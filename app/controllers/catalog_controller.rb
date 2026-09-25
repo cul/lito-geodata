@@ -90,13 +90,16 @@ class CatalogController < ApplicationController
     config.add_facet_field Settings.FIELDS.ACCESS_RIGHTS, label: "Access", limit: 8, item_component: Geoblacklight::IconFacetItemComponent
     config.add_facet_field Settings.FIELDS.RESOURCE_CLASS, label: "Resource Class", limit: 8
     config.add_facet_field Settings.FIELDS.RESOURCE_TYPE, label: "Resource Type", limit: 8
-    config.add_facet_field Settings.FIELDS.FORMAT, label: "Format", limit: 8
-    config.add_facet_field Settings.FIELDS.SUBJECT, label: "Subject", limit: 8
     config.add_facet_field Settings.FIELDS.THEME, label: "Theme", limit: 8
-    config.add_facet_field Settings.FIELDS.CREATOR, label: "Creator", limit: 8
     config.add_facet_field Settings.FIELDS.PUBLISHER, label: "Publisher", limit: 8
     config.add_facet_field Settings.FIELDS.PROVIDER, label: "Provider", limit: 8, item_component: Geoblacklight::IconFacetItemComponent
-    config.add_facet_field Settings.FIELDS.GEOREFERENCED, label: "Georeferenced", limit: 3
+    
+    # LIBSYS-8279 - remove some facets from display
+    # config.add_facet_field Settings.FIELDS.FORMAT, label: "Format", limit: 8
+    # config.add_facet_field Settings.FIELDS.SUBJECT, label: "Subject", limit: 8
+    # config.add_facet_field Settings.FIELDS.CREATOR, label: "Creator", limit: 8
+    # config.add_facet_field Settings.FIELDS.GEOREFERENCED, label: "Georeferenced", limit: 3
+    
 
     # GEOBLACKLIGHT APPLICATION FACETS
 

@@ -102,17 +102,23 @@
       brand mark stays visible even on search results pages. %>
   <div class="d-flex justify-content-start align-items-center px-3 py-2" style="background-color: #B9D9EB;">
     <%= link_to blacklight_config.logo_link do %>
-      <%= image_tag "logo.png", alt: "GeoData@Columbia", height: 50 %>
+      <%= image_tag "logo.png", alt: "GeoData@Columbia", height: 40 %>
     <% end %>
   </div>
 
   <% if current_page?(root_path) && !has_search_parameters? %>
-    <div class="px-4 jumbotron" style="background-color: #B9D9EB; padding-top: 0.75rem; padding-bottom: 0.75rem;">
-      <div class="d-flex justify-content-center">
-        <h1 class="text-center fs-3 mb-0" style="color: #222222;">Find the maps and data you need</h1>
+    <div class="px-4 jumbotron" style="background-color: #B9D9EB; xpadding-top: 1rem; padding-bottom: 1rem;">
+      <div class="text-center">
+        <h1 class="fs-4 mb-1" style="color: #222222;">
+          <%= t('geodata.home.headline_html') %>
+        </h1>
+        <p class="mb-0" style="color: #333333; font-size: 0.95rem;">
+          <%= t('geodata.home.subheading_html') %>
+        </p>
       </div>
     </div>
   <% end %>
 
   <%= render Blacklight::SearchNavbarComponent.new(blacklight_config: blacklight_config) %>
+
 </header>
