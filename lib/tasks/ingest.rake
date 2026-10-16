@@ -162,7 +162,7 @@ namespace :metadata do
       next
     end
 
-    stale = (ENV['STALE_DAYS'] || 21).to_i
+    stale = (ENV['STALE_DAYS'] || 7).to_i
     query = "timestamp:[* TO NOW/DAY-#{stale}DAYS] AND schema_provider_s:Columbia"
 
     puts "Pruning..."
