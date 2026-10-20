@@ -139,7 +139,7 @@ GEM
     config (5.5.1)
       deep_merge (~> 1.2, >= 1.2.1)
     connection_pool (2.4.1)
-    crass (1.0.6)
+    crass (1.0.7)
     cul_omniauth (0.8.0)
       cancancan (~> 3.0)
       devise
