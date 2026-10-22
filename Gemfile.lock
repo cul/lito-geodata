@@ -194,7 +194,7 @@ GEM
       rsolr
       sanitize
       thor
-    geoblacklight (5.3.0)
+    geoblacklight (5.4.0)
       blacklight (~> 8.0)
       coderay
       config
@@ -639,7 +639,7 @@ CHECKSUMS
   ffi (1.17.4-x86_64-linux-gnu) sha256=9d3db14c2eae074b382fa9c083fe95aec6e0a1451da249eab096c34002bc752d
   ffi (1.17.4-x86_64-linux-musl) sha256=3fdf9888483de005f8ef8d1cf2d3b20d86626af206cbf780f6a6a12439a9c49e
   geo_combine (0.11.0) sha256=6e112cd09ca6961b9d21a59e278496b27f5ee8f031b4748ef4ff55c9c1089a51
-  geoblacklight (5.3.0) sha256=08828244f1e9d2f90be28ca665f521d412dd342cb97deeca3d12dca786cbb9d9
+  geoblacklight (5.4.0) sha256=fe84373d70b2aefe1c8f3520cad6408370912eb6e25bdc9991072f1ba1b50c38
   git (5.6.0) sha256=f10227e352b12804ae6c1947b520f6fb027261c5952e93dafcb08ba7cad65363
   globalid (1.4.0) sha256=037f12fbf1d9d7a014d501c2d5c77356fd4ddd96d7a7991d6700bba96706f427
   hashie (5.1.0) sha256=c266471896f323c446ea8207f8ffac985d2718df0a0ba98651a3057096ca3870
