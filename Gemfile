@@ -82,7 +82,7 @@ gem "devise-guests", "~> 0.8"
 gem 'omniauth-cul'
 gem 'omniauth', '~> 2.1'
 
-gem "rsolr", ">= 1.0", "< 3"
+gem "rsolr", ">= 1.0", "< 4"
 
 # MySQL database adapter — used in all environments
 gem  "mysql2"
